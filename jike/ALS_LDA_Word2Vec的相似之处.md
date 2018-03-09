@@ -1,6 +1,6 @@
 ## ALS、LDA和Word2Vec的相同点和不同之处
 
-###相同之处
+### 相同之处
 [ALS](https://datajobs.com/data-science-repo/Recommender-Systems-[Netflix].pdf)是将users-products之间的关系转化为，users-topic-products三者的关系，其中topic是潜层话题的意思。即映射成用户因为喜欢某一类话题，而一些商品中拥有一些话题的元素，所以用户通过喜欢话题而喜欢上某些商品。
 
 [LDA](http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)是将documents-words之间的关系转化为documents-topics-words三者之间的关系，其中topic是潜层的话题。即一篇文章所叙述的内容是为了表达一些话题，而为了表达这些话题，需要用了一些词。即将文章和词之间的关系，映射成文章和主题之间的关系+主题和词之间的关系。
