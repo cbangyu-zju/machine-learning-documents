@@ -16,11 +16,10 @@ YOLO检测网络包括24个卷积层和2个全连接层，如下图所示。
 其中，卷积层用来提取图像特征，全连接层用来预测图像位置和类别概率值。YOLO网络借鉴了GoogLeNet分类网络结构。不同的是，YOLO未使用inception module，而是使用1x1卷积层（此处1x1卷积层的存在是为了跨通道信息整合+3x3卷积层简单替代。YOLO论文中，作者还给出一个更轻快的检测网络fast YOLO，它只有9个卷积层和2个全连接层。使用titan x GPU，fast YOLO可以达到155fps的检测速度，但是mAP值也从YOLO的63.4%降到了52.7%，但却仍然远高于以往的实时物体检测方法（DPM）的mAP值。
 
 ### 输出representation定义
-本部分给出YOLO全连接输出层的定义。YOLO将输入图像分成SxS个格子，每个格子负责检测‘落入’该格子的物体。若某个物体的中心位置的坐标落入到某个格子，那么这个格子就负责检测出这个物体。如下图所示，图中物体狗的中心点（红色原点）落入第5行、第2列的格子内，所以这个格子负责预测图像中的物体狗。
+算法首先把输入图像划分成S*S的格子，然后对每个格子都预测B个bounding boxes，每个bounding box都包含5个预测值：x,y,w,h和confidence。x,y就是bounding box的中心坐标，与grid cell对齐（即相对于当前grid cell的偏移值），使得范围变成0到1；w和h进行归一化（分别除以图像的w和h，这样最后的w和h就在0到1范围）。原文如下：
 
-![图目标检测和分类之YOLO_2](images/目标检测和分类之YOLO_2.png)
+![图目标检测和分类之YOLO_2](images/目标检测和分类之YOLO_2.jpeg)
 
-每个格子输出B个bounding box（包含物体的矩形区域）信息，以及C个物体属于某种类别的概率信息。Bounding box信息包含5个数据值，分别是x,y,w,h,和confidence。其中x,y是指当前格子预测得到的物体的bounding box的中心位置的坐标。w,h是bounding box的宽度和高度。注意：实际训练过程中，w和h的值使用图像的宽度和高度进行归一化到[0,1]区间内；x，y是bounding box中心位置相对于当前格子位置的偏移值，并且被归一化到[0,1]。
 
 confidence反映当前bounding box是否包含物体以及物体位置的准确性，计算方式：confidence = P(object) \* IOU。其中，若bounding box包含物体，则P(object) = 1；否则P(object) = 0. IOU(intersection over union)为预测bounding
 box与物体真实区域的交集面积（以像素为单位，用真实区域的像素面积归一化到[0,1]区间）。因此，YOLO网络最终的全连接层的输出维度是 S\*S\*(B\*5 + C)。YOLO论文中，作者训练采用的输入图像分辨率是448x448，S=7，B=2；采用VOC 20类标注物体作为训练数据，C=20。因此输出向量为7\*7\*(20 + 2\*5)=1470维。作者开源出的YOLO代码中，全连接层输出特征向量各维度对应内容如下：
