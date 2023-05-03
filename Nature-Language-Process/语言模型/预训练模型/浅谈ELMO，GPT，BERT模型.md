@@ -41,3 +41,4 @@ GPT是基于Transformer的Decoder构建的。这就导致GPT类似于传统的�
 
 * https://zhuanlan.zhihu.com/p/264989685
 * https://zhuanlan.zhihu.com/p/146719974
+* 李宏毅视频课程：https://www.zhihu.com/zvideo/1340591789817012225
