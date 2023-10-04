@@ -1,5 +1,11 @@
 # Multi-gate Mixture-of-Experts 多任务学习模型
 
+Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts
+视频简介的youtube地址：
+https://www.youtube.com/watch?v=Dweg47Tswxw
+一个用keras框架实现的开源地址：
+https://github.com/drawbridge/keras-mmoe
+
 ##  challenge in MTL
 在多任务学习时，同时学习多个相关任务，具有明显优势。
 
@@ -77,4 +83,4 @@ f^{k}(x) = sum_{i=1}^{n}(g^{k}(x)_{i} * f_{i}(x))
 
 ## 参考资料
 * [Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts](https://dl.acm.org/citation.cfm?id=3220007)
-* [多任务学习模型详解：Multi-gate Mixture-of-Experts（MMoE ，Google，KDD2018）](https://blog.csdn.net/ty44111144ty/article/details/99068255)
+* [多任务学习模型详解：Multi-gate Mixture-of-Experts（MMoE ，Google，KDD2018）](https://mp.weixin.qq.com/s/EuJ2BOdMqR0zyRtUcdn0kA)
